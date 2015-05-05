@@ -38,4 +38,9 @@ RSpec.describe CoinChanger do
     expect(changer.change).to eql [25]
   end
 
+  it "returns a quarter, dime, nickel, and penny" do
+    changer = CoinChanger.new(41)
+    expect(changer.change).to eql [25, 10, 5, 1]
+  end
+
 end
