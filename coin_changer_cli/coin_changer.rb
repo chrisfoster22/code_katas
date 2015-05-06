@@ -9,11 +9,16 @@ class CoinChanger
   end
 
   def changer(amount)
-
+    coins = []
+    amount.times { coins << 1 }
+    coins
   end
 
-  def output
-    "1 penny"
+  def output(amount)
+    coins = changer(amount)
+    count = coins.count
+    string = "#{count} penn#{(count == 1) ? 'y' : 'ies'}"
+    string
   end
 
 end

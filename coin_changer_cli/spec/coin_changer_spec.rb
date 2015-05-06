@@ -12,11 +12,15 @@ RSpec.describe CoinChanger do
   end
 
   it 'returns a penny' do
-    expect(@coin_changer.output).to eql "1 penny"
+    expect(@coin_changer.output(1)).to eql "1 penny"
   end
 
   it 'returns two pennies' do
-    expect (@coin_changer.output).to eql "2 pennies"
+    expect(@coin_changer.output(2)).to eql "2 pennies"
+  end
+
+  it 'returns a nickel' do
+    expect(@coin_changer.output(5)).to eql "1 nickel"
   end
 
 end
