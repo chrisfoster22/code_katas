@@ -27,4 +27,20 @@ RSpec.describe CoinChanger do
     expect(@coin_changer.changer(10)).to eql "1 dime"
   end
 
+  it 'returns a quarter' do
+    expect(@coin_changer.changer(25)).to eql "1 quarter"
+  end
+
+  it 'returns a nickel and a penny' do
+    expect(@coin_changer.changer(6)).to eql "1 nickel, 1 penny"
+  end
+
+  it 'returns a nickel and two pennies' do
+    expect(@coin_changer.changer(7)).to eql "1 nickel, 2 pennies"
+  end
+
+  it 'returns a quarter, dime, nickel, and penny' do
+    expect(@coin_changer.changer(41)).to eql "1 quarter, 1 dime, 1 nickel, 1 penny"
+  end
+
 end
