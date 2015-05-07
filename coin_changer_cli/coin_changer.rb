@@ -1,54 +1,44 @@
+require_relative 'coins'
+require 'active_support/inflector'
+
 class CoinChanger
 
-  attr_reader :amount
+  attr_accessor :amount
 
   def initialize
-    @quarters = 0
-    @dimes = 0
-    @nickels = 0
-    @pennies = 0
     @amount = 0
   end
 
-  def get_amount
-    amount(STDIN.gets.chomp)
-  end
-
-  def amount(integer)
-    integer.to_i
-  end
-
   def changer(amount)
-    @amount = amount(amount)
-    quarters = get_coins(25)
-    dimes = get_coins(10)
-    nickels = get_coins(5)
-    pennies = get_coins(1)
-    output(pennies, nickels, dimes, quarters)
+    @amount = amount.to_i
+    coins = []
+    amount = amount.to_i
+    coins << get_coins(Quarter.new)
+    coins << get_coins(Dime.new)
+    coins << get_coins(Nickel.new)
+    coins << get_coins(Penny.new)
+    output(coins)
   end
 
   def get_coins(coin)
-    value = @amount / coin
-    @amount -= (value * coin)
-    value
+    coins = []
+    value = @amount / coin.value
+    @amount -= (value * coin.value)
+    value.times { coins << coin}
+    coins
   end
 
-  def output(pennies, nickels, dimes, quarters)
-    string = ""
-    if quarters > 0
-      string << "#{quarters} quarter#{(quarters > 1) ? 's' : ''}"
-      string << ', ' if dimes > 0
+  def output(coins)
+    string_array = []
+    coins.each do |c|
+      unless c.count == 0
+        string = ""
+        string << "#{c.count} "
+        string << "#{c.last.class}".pluralize if c.count > 1
+        string << "#{c.last.class}" if c.count == 1
+        string_array << string
+      end
     end
-    if dimes > 0
-      string << "#{dimes} dime#{(dimes > 1) ? 's' : ''}"
-      string << ', ' if nickels > 0
-    end
-    if nickels > 0
-      string << "1 nickel"
-      string << ', ' if pennies > 0
-    end
-    string << "#{pennies} penn#{(pennies == 1) ? 'y' : 'ies'}" if pennies > 0
-    string
+    string_array.join(', ')
   end
-
 end
