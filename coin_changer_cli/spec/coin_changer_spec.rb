@@ -40,4 +40,7 @@ RSpec.describe CoinChanger do
     expect(coin_changer.changer(55)).to eql "2 Quarters, 1 Nickel"
   end
 
+  it 'will work for negative numbers' do
+    expect(coin_changer.changer(-55)).to eql "2 Quarters, 1 Nickel"
+  end
 end
