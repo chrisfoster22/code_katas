@@ -10,7 +10,7 @@ class CoinChanger
   end
 
   def changer(amount)
-    @amount = amount.to_i
+    @amount = amount.to_i.abs
     coins = []
     amount = amount.to_i
     coins << get_coins(Quarter.new)
@@ -31,11 +31,12 @@ class CoinChanger
   def output(coins)
     string_array = []
     coins.each do |c|
-      unless c.count == 0
+      count = c.count
+      unless count == 0
         string = ""
-        string << "#{c.count} "
-        string << "#{c.last.class}".pluralize if c.count > 1
-        string << "#{c.last.class}" if c.count == 1
+        string << "#{count} "
+        string << "#{c[0].class}".pluralize if count > 1
+        string << "#{c[0].class}" if count == 1
         string_array << string
       end
     end
